@@ -272,21 +272,15 @@ class Config(object):
         self._simplify_parameter('metrics_for_best_model')
 
     def _init_device(self):
-        if 'use_gpu' not in self.external_config_dict:
-            use_gpu = self.overall_config_dict['use_gpu']
+        if 'gpu_id' not in self.external_config_dict:
+            gpu_id = self.overall_config_dict['gpu_id']
         else:
-            use_gpu = self.external_config_dict['use_gpu']
+            gpu_id = self.external_config_dict['gpu_id']
 
-        if use_gpu:
-            if 'gpu_id' not in self.external_config_dict:
-                gpu_id = self.overall_config_dict['gpu_id']
-            else:
-                gpu_id = self.external_config_dict['gpu_id']
-
-            if type(gpu_id) == tuple:
-                os.environ["CUDA_VISIBLE_DEVICES"] = ','.join(str(i) for i in gpu_id)
-            else:
-                os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu_id)
+        if type(gpu_id) == tuple:
+            os.environ["CUDA_VISIBLE_DEVICES"] = ','.join(str(i) for i in gpu_id)
+        else:
+            os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu_id)
 
         # self.external_config_dict['device'] = torch.device("cuda" if torch.cuda.is_available() and use_gpu else "cpu")
 
@@ -303,7 +297,7 @@ class Config(object):
             return self.final_config_dict[_key]
 
     def _set_associated_parameters(self):
-        if not self.final_config_dict.get('model_path', None):
+        if 'model_path' not in self.final_config_dict:
             self.final_config_dict['load_type'] = 'from_scratch'
         elif os.path.exists(os.path.join(self.final_config_dict['model_path'], 'textbox_configuration.pt')):
             self.final_config_dict['load_type'] = 'resume'
@@ -314,7 +308,7 @@ class Config(object):
             self.final_config_dict['optimizer'] = 'adafactor'
             self.final_config_dict['grad_clip'] = None
         
-        if self.final_config_dict['pretrain_task']:
+        if 'pretrain_task' in self.final_config_dict:
             self.final_config_dict['do_test'] = False
             self.final_config_dict['metrics_for_best_model'] = ['loss']
 

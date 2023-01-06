@@ -3,8 +3,6 @@ Parameters start with underscore are internal variables and might be modified by
 
 general_parameters = [
     'gpu_id',
-    'use_gpu',  # GPU
-    'device',
     '_is_local_main_process',  # internal variables
     'seed',
     'reproducibility',  # reproducibility

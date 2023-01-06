@@ -4,8 +4,6 @@ Fri 09 Dec 2022 15:44:51 INFO 63 parameters found.
 # General Hyper Parameters: 
 
 gpu_id: 0
-use_gpu: True
-device: cuda
 seed: 2020
 reproducibility: True
 cmd: run_textbox.py --model_path=facebook/bart-base

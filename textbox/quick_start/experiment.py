@@ -44,7 +44,7 @@ class Experiment:
         self.accelerator = Accelerator(gradient_accumulation_steps=self.config['accumulation_steps'])
         self.config.update({
             '_is_local_main_process': self.accelerator.is_local_main_process,
-            'device': self.accelerator.device
+            'device': 'cuda'
         })
         self.logger = self.init_logger(self.config)
         self.summary_tracker = SummaryTracker.basicConfig(self.get_config())
