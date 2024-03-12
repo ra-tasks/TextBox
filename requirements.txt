@@ -16,5 +16,4 @@ six
 accelerate
 hyperopt
 fast-bleu
-git+https://github.com/microsoft/fastseq.git
 git+https://github.com/RUCAIBox/transformers.git
